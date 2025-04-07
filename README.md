@@ -37,3 +37,18 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## Technologies
+
+This project uses the following technologies and tools:
+
+## Technologies
+
+This project uses the following technologies and tools:
+
+- [**Vue 3**](https://vuejs.org/) – a progressive JavaScript framework for building interactive user interfaces.
+- [**Vite**](https://vite.dev/) – a fast frontend build tool and development server optimized for modern frameworks like Vue.
+- [**Unplugin Vue Router**](https://uvr.esm.is/) – a file-based routing system for Vue that automatically generates routes from your folder structure.
+- [**TypeScript**](https://www.typescriptlang.org/) – a strongly typed programming language that builds on JavaScript, providing better tooling and safer code.
+- [**Supabase**](https://supabase.com/) – an open-source backend-as-a-service that offers authentication, real-time databases, and storage.
+- [**Faker**](https://fakerjs.dev/) – a library for generating fake data such as names, emails, addresses, and more for testing and prototyping.
