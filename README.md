@@ -52,3 +52,4 @@ This project uses the following technologies and tools:
 - [**TypeScript**](https://www.typescriptlang.org/) – a strongly typed programming language that builds on JavaScript, providing better tooling and safer code.
 - [**Supabase**](https://supabase.com/) – an open-source backend-as-a-service that offers authentication, real-time databases, and storage.
 - [**Faker**](https://fakerjs.dev/) – a library for generating fake data such as names, emails, addresses, and more for testing and prototyping.
+- [**shadcn-vue**](https://github.com/shadcn-ui/ui) – a component library for building accessible and beautifully styled UI components in Vue using Tailwind CSS and Radix UI primitives.
