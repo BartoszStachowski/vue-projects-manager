@@ -52,3 +52,5 @@ This project uses the following technologies and tools:
 - [**TypeScript**](https://www.typescriptlang.org/) – a strongly typed programming language that builds on JavaScript, providing better tooling and safer code.
 - [**Supabase**](https://supabase.com/) – an open-source backend-as-a-service that offers authentication, real-time databases, and storage.
 - [**Faker**](https://fakerjs.dev/) – a library for generating fake data such as names, emails, addresses, and more for testing and prototyping.
+- [**shadcn-vue**](https://github.com/radix-vue/shadcn-vue) – a UI component library for Vue built on top of Radix UI primitives with Tailwind CSS, offering accessible and customizable components.
+- [**TanStack Table**](https://tanstack.com/table) – a headless utility for building powerful and flexible data tables in JavaScript and TypeScript applications.
