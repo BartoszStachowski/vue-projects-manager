@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <h1>Home Page</h1>
+    <h1>Task</h1>
   </div>
 </template>
 
