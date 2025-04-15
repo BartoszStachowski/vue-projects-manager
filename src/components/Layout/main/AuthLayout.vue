@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import { usePageStore } from '@/stores/page.ts';
-import { storeToRefs } from 'pinia';
-
-import TopNavbar from '@/components/Layout/TopNavbar.vue';
-import Sidebar from '@/components/Layout/Sidebar.vue';
-
 const { pageData } = storeToRefs(usePageStore());
 </script>
 
