@@ -5,6 +5,9 @@ import type { Tables } from '../../../database/types.ts';
 import type { ColumnDef } from '@tanstack/vue-table';
 import DataTable from '@/components/ui/data-table/DataTable.vue';
 import { RouterLink } from 'vue-router';
+import { usePageStore } from '@/stores/page.ts';
+
+usePageStore().pageData.title = 'Tasks';
 
 const tasks = ref<Tables<'tasks'>[] | null>(null);
 const getTasks = async () => {

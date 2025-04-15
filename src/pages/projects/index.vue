@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { usePageStore } from '@/stores/page.ts';
 import { supabase } from '@/lib/supabaseClient';
 import { h, ref } from 'vue';
 import type { Tables } from '../../../database/types.ts';
 import type { ColumnDef } from '@tanstack/vue-table';
+
 import DataTable from '@/components/ui/data-table/DataTable.vue';
 import { RouterLink } from 'vue-router';
+
+usePageStore().pageData.title = 'Projects';
 
 const projects = ref<Tables<'projects'>[] | null>(null);
 const getProjects = async () => {
