@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { projectQuery } from '@/utils/supaQueries.ts';
 import type { Project } from '@/utils/supaQueries.ts';
-import { usePageStore } from '@/stores/page.ts';
 
 const route = useRoute('/projects/[slug]');
 

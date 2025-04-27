@@ -3,7 +3,6 @@ import { taskQuery } from '@/utils/supaQueries.ts';
 import { useRoute } from 'vue-router';
 
 import type { Task } from '@/utils/supaQueries.ts';
-import { usePageStore } from '@/stores/page.ts';
 
 const route = useRoute('/tasks/[id]');
 const task = ref<Task | null>(null);
