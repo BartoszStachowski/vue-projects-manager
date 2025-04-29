@@ -8,19 +8,19 @@ export const useErrorStore = defineStore('error-store', () => {
     error,
     customCode,
   }: {
-    error: string | PostgrestError;
-    customCode: number;
+    error: string | PostgrestError | Error;
+    customCode?: number;
   }) => {
     // is not a supabase error
-    if (typeof error === 'string') {
-      activeError.value = Error(error);
-      activeError.value.customCode = customCode;
+    if (typeof error === 'string' || error instanceof Error) {
+      activeError.value = typeof error === 'string' ? Error(error) : error;
+      activeError.value.customCode = customCode || 500;
       return;
     }
 
     // is a supabase error
     activeError.value = error;
-    activeError.value.statusCode = customCode;
+    activeError.value.statusCode = customCode || 500;
   };
 
   return {
