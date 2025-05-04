@@ -2,7 +2,7 @@ import { profileQuery } from '@/utils/supaQueries';
 import type { Session, User } from '@supabase/supabase-js';
 import type { Tables } from 'database/types';
 
-export const useAuthStore = defineStore('auth', () => {
+export const useAuthStore = defineStore('auth-store', () => {
   const user = ref<null | User>(null);
   const profile = ref<null | Tables<'profiles'>>(null);
 
