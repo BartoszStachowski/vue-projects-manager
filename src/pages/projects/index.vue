@@ -8,6 +8,14 @@ const { projects } = storeToRefs(projectsLoader);
 const { getProjects } = projectsLoader;
 
 await getProjects();
+
+const { getGroupedCollaborators, groupedCollaborators } = useCollaborators();
+
+await getGroupedCollaborators(projects.value);
+
+console.log('test :: ', groupedCollaborators.value);
+
+// getGroupedCollaborators();
 </script>
 
 <template>
