@@ -3,7 +3,7 @@ import type { Projects } from '@/utils/supaQueries.ts';
 import { RouterLink } from 'vue-router';
 import type { Ref } from 'vue';
 import type { GroupedCollaborators } from '@/types/groupedCollaborators';
-import { Avatar } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { AvatarImage } from '@/components/ui/avatar';
 
 export const columns = (collaborators: Ref<GroupedCollaborators>): ColumnDef<Projects[0]>[] => [
@@ -34,10 +34,18 @@ export const columns = (collaborators: Ref<GroupedCollaborators>): ColumnDef<Pro
     cell: ({ row }) => {
       return h(
         'div',
-        { class: 'text-left font-medium' },
-        collaborators.value[row.original.id].map((collaborators) => {
-          return h(Avatar, () => h(AvatarImage, { src: collaborators.avatar_url || '' }));
-        }),
+        { class: 'text-left font-medium flex' },
+        collaborators.value[row.original.id]
+          ? collaborators.value[row.original.id].map((collaborators) => {
+              return h(RouterLink, { to: `/users/${collaborators.username}` }, () => {
+                return h(Avatar, { class: 'hover:scale-110 transition-transform mr-2' }, () =>
+                  h(AvatarImage, { src: collaborators.avatar_url || '' }),
+                );
+              });
+            })
+          : row.original.collaborators.map(() => {
+              return h(Avatar, { class: 'animate-pulse' }, () => h(AvatarFallback));
+            }),
       );
     },
   },
