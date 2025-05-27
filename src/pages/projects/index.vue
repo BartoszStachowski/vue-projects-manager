@@ -13,13 +13,11 @@ const { getGroupedCollaborators, groupedCollaborators } = useCollaborators();
 
 await getGroupedCollaborators(projects.value);
 
-console.log('test :: ', groupedCollaborators.value);
-
-// getGroupedCollaborators();
+const columnsWithCollaborators = columns(groupedCollaborators);
 </script>
 
 <template>
-  <DataTable v-if="projects" :columns="columns" :data="projects" />
+  <DataTable v-if="projects" :columns="columnsWithCollaborators" :data="projects" />
 </template>
 
 <style scoped></style>
