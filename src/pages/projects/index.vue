@@ -3,7 +3,7 @@ import { columns } from '@/utils/tableColumns/projectsColumns.ts';
 
 usePageStore().pageData.title = 'Projects';
 
-const projectsLoader = useProjectStore();
+const projectsLoader = useProjectsStore();
 const { projects } = storeToRefs(projectsLoader);
 const { getProjects } = projectsLoader;
 

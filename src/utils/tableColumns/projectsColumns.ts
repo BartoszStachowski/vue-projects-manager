@@ -34,7 +34,7 @@ export const columns = (collaborators: Ref<GroupedCollaborators>): ColumnDef<Pro
     cell: ({ row }) => {
       return h(
         'div',
-        { class: 'text-left font-medium flex' },
+        { class: 'text-left font-medium h-20 flex items-center' },
         collaborators.value[row.original.id]
           ? collaborators.value[row.original.id].map((collaborators) => {
               return h(RouterLink, { to: `/users/${collaborators.username}` }, () => {
