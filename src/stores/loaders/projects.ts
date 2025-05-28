@@ -2,24 +2,33 @@ import { projectQuery, projectsQuery, type Project, type Projects } from '@/util
 import { useMemoize } from '@vueuse/core';
 
 export const useProjectsStore = defineStore('project-store', () => {
-  const projects = ref<Projects>([]);
-  const project = ref<Project>();
+  const projects = ref<Projects | null>(null);
+  const project = ref<Project | null>(null);
 
   // Memoize the projectsQuery to avoid unnecessary re-fetching
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loadProjects = useMemoize(async (key: string) => await projectsQuery);
   const loadProject = useMemoize(async (slug: string) => await projectQuery(slug));
 
-  const validateCache = () => {
-    if (projects.value?.length) {
-      projectsQuery.then(({ data, error }) => {
+  interface ValidateCacheParams {
+    ref: typeof projects | typeof project;
+    query: typeof projectsQuery | typeof projectQuery;
+    key: string;
+    loaderFn: typeof loadProjects | typeof loadProject;
+  }
+
+  const validateCache = ({ ref, query, key, loaderFn }: ValidateCacheParams) => {
+    if (ref.value) {
+      const finalQuery = typeof query === 'function' ? query(key) : query;
+
+      finalQuery.then(({ data, error }) => {
         // Check if the data has changed
-        if (JSON.stringify(projects.value) === JSON.stringify(data)) {
+        if (JSON.stringify(ref.value) === JSON.stringify(data)) {
           return;
         } else {
           // Clear the cache if the data has changed
-          loadProjects.delete('projects');
-          if (!error && data) projects.value = data;
+          loaderFn.delete(key);
+          if (!error && data) ref.value = data;
         }
       });
     }
@@ -32,7 +41,12 @@ export const useProjectsStore = defineStore('project-store', () => {
 
     if (data) projects.value = data;
 
-    validateCache();
+    validateCache({
+      ref: projects,
+      query: projectsQuery,
+      key: 'projects',
+      loaderFn: loadProjects,
+    });
   };
 
   const getProject = async (slug: string) => {
@@ -41,6 +55,13 @@ export const useProjectsStore = defineStore('project-store', () => {
     if (error) useErrorStore().setError({ error, customCode: status });
 
     if (data) project.value = data;
+
+    validateCache({
+      ref: project,
+      query: projectQuery,
+      key: slug,
+      loaderFn: loadProject,
+    });
   };
 
   return {

@@ -11,7 +11,7 @@ await getProjects();
 
 const { getGroupedCollaborators, groupedCollaborators } = useCollaborators();
 
-getGroupedCollaborators(projects.value);
+getGroupedCollaborators(projects.value ?? []);
 
 const columnsWithCollaborators = columns(groupedCollaborators);
 </script>
