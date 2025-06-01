@@ -2,14 +2,35 @@
 import type { Database } from 'database/types';
 type Status = Database['public']['Enums']['current_status'];
 
+const emit = defineEmits(['commit']);
+
 const value = defineModel<Status>();
+const toggleValue = () => {
+  value.value = value.value === 'completed' ? 'in-progress' : 'completed';
+  emit('commit');
+};
 </script>
 
 <template>
-  <div class="text-2xl cursor-pointer">
-    <iconify-icon v-if="value === 'completed'" icon="lucide:circle-check" class="text-green-500" />
-    <iconify-icon v-else icon="lucide:circle-dot" class="text-gray-500" />
+  <div class="text-2xl cursor-pointer" @click="toggleValue">
+    <Transition mode="out-in">
+      <iconify-icon
+        v-if="value === 'completed'"
+        icon="lucide:circle-check"
+        class="text-green-500"
+      />
+      <iconify-icon v-else icon="lucide:circle-dot" class="text-gray-500" />
+    </Transition>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: transform 0.1s;
+}
+.v-enter-from,
+.v-leave-to {
+  transform: scale(0.3);
+}
+</style>
