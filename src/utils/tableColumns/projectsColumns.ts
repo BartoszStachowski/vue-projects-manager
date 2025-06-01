@@ -5,6 +5,7 @@ import type { Ref } from 'vue';
 import type { GroupedCollaborators } from '@/types/groupedCollaborators';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { AvatarImage } from '@/components/ui/avatar';
+import AppInPlaceEditStatus from '@/components/AppInPlaceEdit/AppInPlaceEditStatus.vue';
 
 export const columns = (collaborators: Ref<GroupedCollaborators>): ColumnDef<Projects[0]>[] => [
   {
@@ -25,7 +26,11 @@ export const columns = (collaborators: Ref<GroupedCollaborators>): ColumnDef<Pro
     accessorKey: 'status',
     header: () => h('div', { class: 'text-left' }, 'Status'),
     cell: ({ row }) => {
-      return h('div', { class: 'text-left font-medium' }, row.getValue('status'));
+      return h(
+        'div',
+        { class: 'text-left font-medium' },
+        h(AppInPlaceEditStatus, { modelValue: row.original.status }),
+      );
     },
   },
   {
