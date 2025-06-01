@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const inputValue = defineModel<string | null>({ required: true });
+const inputValue = defineModel();
 
 const emit = defineEmits(['commit']);
 
