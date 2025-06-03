@@ -2,17 +2,24 @@
 import type { Database } from 'database/types';
 type Status = Database['public']['Enums']['current_status'];
 
+const value = defineModel<Status>();
+
 const emit = defineEmits(['commit']);
 
-const value = defineModel<Status>();
+const { readonly = false } = defineProps<{
+  readonly?: boolean;
+}>();
+
 const toggleValue = () => {
+  if (readonly) return;
+
   value.value = value.value === 'completed' ? 'in-progress' : 'completed';
   emit('commit');
 };
 </script>
 
 <template>
-  <div class="text-2xl cursor-pointer" @click="toggleValue">
+  <div class="text-2xl" :class="{ 'cursor-pointer': !readonly }" @click="toggleValue">
     <Transition mode="out-in">
       <iconify-icon
         v-if="value === 'completed'"

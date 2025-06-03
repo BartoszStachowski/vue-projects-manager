@@ -29,7 +29,7 @@ export const columns = (collaborators: Ref<GroupedCollaborators>): ColumnDef<Pro
       return h(
         'div',
         { class: 'text-left font-medium' },
-        h(AppInPlaceEditStatus, { modelValue: row.original.status }),
+        h(AppInPlaceEditStatus, { modelValue: row.original.status, readonly: true }),
       );
     },
   },
