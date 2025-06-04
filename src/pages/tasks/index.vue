@@ -8,8 +8,13 @@ const { tasks } = storeToRefs(tasksLoader);
 const { getTasks } = tasksLoader;
 
 await getTasks();
+
+const { getGroupedCollaborators, groupedCollaborators } = useCollaborators();
+
+getGroupedCollaborators(tasks.value ?? []);
+const columnsWithCollaborators = columns(groupedCollaborators);
 </script>
 
 <template>
-  <DataTable v-if="tasks" :columns="columns" :data="tasks" />
+  <DataTable v-if="tasks" :columns="columnsWithCollaborators" :data="tasks" />
 </template>
