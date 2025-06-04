@@ -1,18 +1,11 @@
 <script setup lang="ts">
-import { tasksWithProjectsQuery } from '@/utils/supaQueries.ts';
-import type { TasksWithProjects } from '@/utils/supaQueries.ts';
 import { columns } from '@/utils/tableColumns/tasksColumns.ts';
 
 usePageStore().pageData.title = 'Tasks';
 
-const tasks = ref<TasksWithProjects | null>(null);
-const getTasks = async () => {
-  const { data, error, status } = await tasksWithProjectsQuery;
-
-  if (error) useErrorStore().setError({ error, customCode: status });
-
-  tasks.value = data;
-};
+const tasksLoader = useTasksStore();
+const { tasks } = storeToRefs(tasksLoader);
+const { getTasks } = tasksLoader;
 
 await getTasks();
 </script>
