@@ -4,6 +4,7 @@ import { RouterLink } from 'vue-router';
 import type { GroupedCollaborators } from '@/types/groupedCollaborators';
 import type { Ref } from 'vue';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import AppInPlaceEditStatus from '@/components/AppInPlaceEdit/AppInPlaceEditStatus.vue';
 
 export const columns = (
   collaborators: Ref<GroupedCollaborators>,
@@ -26,7 +27,11 @@ export const columns = (
     accessorKey: 'status',
     header: () => h('div', { class: 'text-left' }, 'Status'),
     cell: ({ row }) => {
-      return h('div', { class: 'text-left font-medium' }, row.getValue('status'));
+      return h(
+        'div',
+        { class: 'text-left font-medium' },
+        h(AppInPlaceEditStatus, { modelValue: row.original.status, readonly: true }),
+      );
     },
   },
   {

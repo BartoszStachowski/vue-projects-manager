@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { taskQuery } from '@/utils/supaQueries.ts';
 import { useRoute } from 'vue-router';
 
-import type { Task } from '@/utils/supaQueries.ts';
-
 const route = useRoute('/tasks/[id]');
-const task = ref<Task | null>(null);
+
+const { task } = storeToRefs(useTasksStore());
 
 watch(
   () => task.value?.name,
@@ -14,15 +12,22 @@ watch(
   },
 );
 
-const getTask = async () => {
-  const { data, error, status } = await taskQuery(route.params.id);
+// const getTask = async () => {
+//   const { data, error, status } = await taskQuery(route.params.id);
 
-  if (error) useErrorStore().setError({ error, customCode: status });
+//   if (error) useErrorStore().setError({ error, customCode: status });
 
-  task.value = data;
-};
+//   task.value = data;
+// };
 
-await getTask();
+const { getTask } = useTasksStore();
+
+await getTask(route.params.id);
+
+const { getProfilesByIds } = useCollaborators();
+const collaborators = task.value?.collaborators
+  ? await getProfilesByIds(task.value.collaborators)
+  : [];
 </script>
 
 <template>
@@ -55,11 +60,14 @@ await getTask();
         <div class="flex">
           <Avatar
             class="-mr-4 border border-primary hover:scale-110 transition-transform"
-            v-for="collab in task.collaborators"
-            :key="collab"
+            v-for="collab in collaborators"
+            :key="collab.id"
           >
-            <RouterLink class="w-full h-full flex items-center justify-center" to="">
-              <AvatarImage src="" alt="" />
+            <RouterLink
+              class="w-full h-full flex items-center justify-center"
+              :to="{ name: '/users/[username]', params: { username: collab.username } }"
+            >
+              <AvatarImage :src="collab.avatar_url || ''" alt="avatar" />
               <AvatarFallback> </AvatarFallback>
             </RouterLink>
           </Avatar>
