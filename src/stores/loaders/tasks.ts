@@ -1,6 +1,7 @@
 import {
   taskQuery,
   tasksWithProjectsQuery,
+  updateTaskQuery,
   type Task,
   type TasksWithProjects,
 } from '@/utils/supaQueries';
@@ -69,10 +70,20 @@ export const useTasksStore = defineStore('task-store', () => {
     });
   };
 
+  const updateTask = async () => {
+    if (!task.value) return;
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { id, projects, ...taskProperties } = task.value;
+
+    await updateTaskQuery(taskProperties, task.value.id);
+  };
+
   return {
     tasks,
     getTasks,
     task,
     getTask,
+    updateTask,
   };
 });

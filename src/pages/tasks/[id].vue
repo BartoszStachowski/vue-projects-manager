@@ -12,15 +12,7 @@ watch(
   },
 );
 
-// const getTask = async () => {
-//   const { data, error, status } = await taskQuery(route.params.id);
-
-//   if (error) useErrorStore().setError({ error, customCode: status });
-
-//   task.value = data;
-// };
-
-const { getTask } = useTasksStore();
+const { getTask, updateTask } = useTasksStore();
 
 await getTask(route.params.id);
 
@@ -34,7 +26,9 @@ const collaborators = task.value?.collaborators
   <Table v-if="task">
     <TableRow>
       <TableHead>Name</TableHead>
-      <TableCell>{{ task.name }}</TableCell>
+      <TableCell>
+        <AppInPlaceEditText v-model="task.name" @commit="updateTask" />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead>Description</TableHead>
