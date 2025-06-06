@@ -33,12 +33,8 @@ const collaborators = task.value?.collaborators
     <TableRow>
       <TableHead>Description</TableHead>
       <TableCell>
-        {{ task.description }}
+        <AppInPlaceEditTextarea class="h-20" v-model="task.description" @commit="updateTask" />
       </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableHead>Assignee</TableHead>
-      <TableCell>Lorem ipsum</TableCell>
     </TableRow>
     <TableRow>
       <TableHead>Project</TableHead>
@@ -46,7 +42,9 @@ const collaborators = task.value?.collaborators
     </TableRow>
     <TableRow>
       <TableHead>Status</TableHead>
-      <TableCell>{{ task.status }}</TableCell>
+      <TableCell>
+        <AppInPlaceEditStatus v-model="task.status" @commit="updateTask" />
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableHead>Collaborators</TableHead>
@@ -100,4 +98,22 @@ const collaborators = task.value?.collaborators
   </Table>
 </template>
 
-<style scoped></style>
+<style scoped>
+@reference "@/index.css";
+
+th {
+  @apply w-[100px];
+}
+
+td {
+  text-wrap: auto;
+}
+
+h2 {
+  @apply mb-4 text-lg font-semibold w-fit;
+}
+
+.table-container {
+  @apply overflow-hidden overflow-y-auto rounded-md bg-slate-900 h-80;
+}
+</style>

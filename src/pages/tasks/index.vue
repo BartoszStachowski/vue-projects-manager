@@ -18,3 +18,5 @@ const columnsWithCollaborators = columns(groupedCollaborators);
 <template>
   <DataTable v-if="tasks" :columns="columnsWithCollaborators" :data="tasks" />
 </template>
+
+<style scoped></style>
